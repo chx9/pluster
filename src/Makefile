@@ -2,7 +2,10 @@ CXX ?= g++
 LVL ?= -g -O3
 Opts += $(LVL)
 
-LDLIBCPP = -static-libstdc++
+LDLIBCPP=-static-libstdc++ -lspdlog 
+INCLUDE_DIR=-I../deps/spdlog/include
+LIBRARY_DIRS=-L../deps/spdlog/build
+CXXFLAGS += $(INCLUDE_DIR) $(LIBRARY_DIRS) $(LDLIBCPP)
 EV ?= auto
 ifeq ($(EV), auto)
 	plt = $(shell uname)
@@ -35,14 +38,14 @@ $(error Unknown event:$(EV))
 endif
 
 target = pluster
-objs = main.o \
+objs = \
 	   socket.o \
 	   $(multiplexor).o \
 	   ae_epoll.o \
 	   ae_poll.o \
 	   ae_kqueue.o \
+	   main.o \
 
 default: $(target)
-
 $(target): $(objs)
-	$(CXX) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+	$(CXX) $(CFLAGS) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
