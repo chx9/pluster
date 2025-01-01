@@ -31,17 +31,23 @@ void SPDLOG::setLogLevel(const std::string &level)
         exit(1);
     }
 }
-void SPDLOG::init(std::string log_file_path, std::string logger_name, std::string level, size_t max_file_size, size_t max_files, bool mt_security)
+void SPDLOG::init(std::string log_file_path, std::string logger_name, std::string level, size_t max_file_size, size_t max_files, bool mt_security, LogDestination destination)
 {
     try {
-        if (mt_security) {
-            logger_ptr_ = spdlog::rotating_logger_mt(logger_name, log_file_path, max_file_size, max_files);
+        if (destination == LogDestination::Console) {
+            // Create a console logger
+            auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+            logger_ptr_ = std::make_shared<spdlog::logger>(logger_name, console_sink);
+        } else if (destination == LogDestination::File) {
+            if (mt_security) {
+                logger_ptr_ = spdlog::rotating_logger_mt(logger_name, log_file_path, max_file_size, max_files);
+            } else {
+                logger_ptr_ = spdlog::rotating_logger_st(logger_name, log_file_path, max_file_size, max_files);
+            }
         }
-        else {
-            logger_ptr_ = spdlog::rotating_logger_st(logger_name, log_file_path, max_file_size, max_files);
-        }
+
         setLogLevel(level);
-        logger_ptr_->set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%l] [%t] [%s:%#] [%s:%#] %v"); //设置格式:https://spdlog.docsforge.com/v1.x/3.custom-formatting/
+        logger_ptr_->set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%l] [%t] [%s:%#] [%s:%#] %v");
     } 
     catch (const spdlog::spdlog_ex& ex) {
         fprintf(stderr, "Log initialization failed: %s\n", ex.what());

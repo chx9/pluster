@@ -30,7 +30,7 @@
 *.exe
 *.out
 *.app
-
+.clangd
 .vscode/
 src/pluster
 
