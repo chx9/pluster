@@ -47,7 +47,7 @@ void SPDLOG::init(std::string log_file_path, std::string logger_name, std::strin
         }
 
         setLogLevel(level);
-        logger_ptr_->set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%l] [%t] [%s:%#] [%s:%#] %v");
+        logger_ptr_->set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%l] [%s:%#] %v");
     } 
     catch (const spdlog::spdlog_ex& ex) {
         fprintf(stderr, "Log initialization failed: %s\n", ex.what());
