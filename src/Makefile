@@ -44,6 +44,7 @@ objs = \
 	   ae_epoll.o \
 	   ae_poll.o \
 	   ae_kqueue.o \
+	   log.o \
 	   main.o \
 
 default: $(target)
