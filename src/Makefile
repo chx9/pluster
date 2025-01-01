@@ -2,7 +2,7 @@ CXX ?= g++
 LVL ?= -g -O3
 Opts += $(LVL)
 
-LDLIBCPP=-static-libstdc++ -lspdlog 
+LDLIBCPP=-static-libstdc++ -lspdlog -lpthread
 INCLUDE_DIR=-I../deps/spdlog/include
 LIBRARY_DIRS=-L../deps/spdlog/build
 CXXFLAGS += $(INCLUDE_DIR) $(LIBRARY_DIRS) $(LDLIBCPP)
@@ -46,6 +46,7 @@ objs = \
 	   ae_kqueue.o \
 	   log.o \
 	   config.o \
+	   worker.o \
 	   main.o \
 
 default: $(target)

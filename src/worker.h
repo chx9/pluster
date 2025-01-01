@@ -7,12 +7,12 @@
 #include "cluster.h"
 class Worker {
  public:
-  Worker();
+  Worker(int id);
   ~Worker();
   void run();
-  void join();
-
+  int Id(){return id_;}
  private:
+  int id_;
   Cluster *cluster_;
 };
 #endif
