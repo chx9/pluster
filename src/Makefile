@@ -45,8 +45,12 @@ objs = \
 	   ae_poll.o \
 	   ae_kqueue.o \
 	   log.o \
+	   config.o \
 	   main.o \
 
 default: $(target)
 $(target): $(objs)
 	$(CXX) $(CFLAGS) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
+
+clean:
+	rm -rf pluster *.o *.gcda *.gcno *.gcov lcov-html Makefile.dep
