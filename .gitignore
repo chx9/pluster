@@ -33,4 +33,4 @@
 .clangd
 .vscode/
 src/pluster
-
+proxy.*log
