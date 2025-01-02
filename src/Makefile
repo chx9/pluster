@@ -46,6 +46,7 @@ objs = \
 	   ae_kqueue.o \
 	   log.o \
 	   config.o \
+	   socket.o \
 	   worker.o \
 	   main.o \
 
