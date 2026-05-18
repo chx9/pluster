@@ -1,6 +1,6 @@
 # pluster
 
-A Redis Cluster proxy written in Go. Exposes a single Redis endpoint to clients and transparently routes requests to the correct cluster node — handling slot-based routing, cross-slot fan-out, MOVED/ASK redirections, and topology changes.
+Pluster is a proxy for redis cluster written in Go. Exposes a single Redis endpoint to clients and transparently routes requests to the correct cluster node — handling slot-based routing, cross-slot fan-out, MOVED/ASK redirections, and topology changes.
 
 ## Features
 
